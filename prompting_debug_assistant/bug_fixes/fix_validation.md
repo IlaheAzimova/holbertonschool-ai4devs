@@ -58,6 +58,3 @@
 - Added assertions to check expected results.
 - Kept the original buggy snippets unchanged.
 
-## Final Verification
-
-Run all corrected files in their respective environments before submission. Record the actual outputs after testing. Do not mark a test as passed unless it has been executed successfully.
