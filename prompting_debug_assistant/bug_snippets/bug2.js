@@ -1,6 +1,12 @@
-// Intended: print every item in the array with its zero-based index.
+// Intended: print each fruit with its zero-based index.
 const fruits = ["apple", "banana", "orange"];
 
-for (let i = 0; i <= fruits.length; i++) {
-  console.log(i, fruits[i].toUpperCase());
+function printFruits(items) {
+  // BUG: <= allows the loop to access one index past the end.
+  for (let i = 0; i <= items.length; i++) {
+    console.log(i, items[i].toUpperCase());
+  }
 }
+
+printFruits(fruits);
+console.log("Finished printing fruits.");
