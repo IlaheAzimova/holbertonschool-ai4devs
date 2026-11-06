@@ -1,9 +1,12 @@
 def unique_items(items):
-    """Return the items in first-seen order, with duplicates removed."""
+    """Return unique items in their original order."""
     result = []
     for item in items:
         if item not in result:
+            # BUG: append mutates the list and returns None.
             result = result.append(item)
     return result
 
-print(unique_items(["red", "blue", "red"]))
+
+colors = ["red", "blue", "red", "green", "blue"]
+print(unique_items(colors))
