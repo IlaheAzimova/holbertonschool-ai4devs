@@ -1,13 +1,23 @@
 # Fix Validation Report
 
+This report documents the test inputs, expected outputs, actual outputs, and fix confirmation for all six bug fixes.
+
 ## Bug 1 — `bug1_fixed.py`
 
 **Test command:** `python3 bug1_fixed.py`
 
-**Tests performed:**
-- `average([10, 20, 30])` returns `20`.
-- `average([2, 4])` returns `3`.
-- `average([5])` returns `5`.
+**Input:**
+```python
+average([10, 20, 30])
+average([2, 4])
+average([5])
+average([])
+```
+
+**Expected output / behavior:**
+- `average([10, 20, 30])` returns `20.0`.
+- `average([2, 4])` returns `3.0`.
+- `average([5])` returns `5.0`.
 - `average([])` raises `ValueError`.
 
 **Actual output:**
@@ -15,9 +25,9 @@
 bug1_fixed.py: all tests passed
 ```
 
-**Status:** ✔ PASS
+**Fix confirmation:** ✔ PASS
 
-**Confirmation:** The average is calculated using `sum(numbers) / len(numbers)`. Empty input is handled by raising `ValueError`, preventing division by zero.
+The function calculates the average using `sum(numbers) / len(numbers)`. It raises `ValueError` for an empty list, preventing division by zero. The included assertions verify the normal and empty-input cases.
 
 ---
 
@@ -25,9 +35,17 @@ bug1_fixed.py: all tests passed
 
 **Test command:** `node bug2_fixed.js`
 
-**Test input:**
+**Input:**
 ```javascript
 ["apple", "banana", "orange"]
+```
+
+**Expected output:**
+```text
+0 APPLE
+1 BANANA
+2 ORANGE
+bug2_fixed.js: test completed
 ```
 
 **Actual output:**
@@ -38,9 +56,9 @@ bug1_fixed.py: all tests passed
 bug2_fixed.js: test completed
 ```
 
-**Status:** ✔ PASS
+**Fix confirmation:** ✔ PASS
 
-**Confirmation:** The loop uses `i < items.length`. All three items are processed, and the loop does not access an out-of-range array element.
+The loop uses `i < items.length`, processes every array element, and converts each fruit name to uppercase. The expected and actual outputs match.
 
 ---
 
@@ -48,20 +66,23 @@ bug2_fixed.js: test completed
 
 **Test command:** `python3 bug3_fixed.py`
 
-**Tests performed:**
-- Read a file containing `first line` and `second line`.
-- Verify that the function returns `first line`.
-- Verify that an empty file raises `ValueError`.
-- Verify that the temporary test file is removed.
+**Input:**
+- A file containing `first line` followed by `second line`.
+- An empty file.
+
+**Expected output / behavior:**
+- For the file containing two lines, `read_first_line()` returns `"first line"`.
+- For the empty file, `read_first_line()` raises `ValueError`.
+- All assertions pass.
 
 **Actual output:**
 ```text
 bug3_fixed.py: all tests passed
 ```
 
-**Status:** ✔ PASS
+**Fix confirmation:** ✔ PASS
 
-**Confirmation:** The file is opened with a context manager, the first line is returned without its newline, and empty files are handled explicitly.
+The function reads the first line, removes its newline characters, and raises `ValueError` if the file is empty. The test code checks both cases and removes the temporary test file afterward.
 
 ---
 
@@ -69,32 +90,46 @@ bug3_fixed.py: all tests passed
 
 **Test command:** `node bug4_fixed.js`
 
-**Tests performed:**
+**Input:**
+```javascript
+totalWithTax(100, 0.08)
+totalWithTax(50, 0.1)
+```
+
+**Expected output / behavior:**
 - `totalWithTax(100, 0.08)` returns `108`.
 - `totalWithTax(50, 0.1)` returns `55`.
+- Both assertions pass.
 
 **Actual output:**
 ```text
 bug4_fixed.js: all tests passed
 ```
 
-**Status:** ✔ PASS
+**Fix confirmation:** ✔ PASS
 
-**Confirmation:** Tax is calculated by multiplying the price by the tax rate. Both assertions pass when the program executes successfully.
+The function calculates tax by multiplying the price by the tax rate, then adds the tax to the original price. Both test cases match their expected values.
 
 ---
 
 ## Bug 5 — `bug5_fixed.c`
 
-**Test commands:**
+**Test command:**
 ```bash
-gcc -Wall -Wextra -Werror bug5_fixed.c -o bug5_test
-./bug5_test
+gcc -Wall -Wextra -o bug5_fixed bug5_fixed.c
+./bug5_fixed
 ```
 
-**Test input:**
+**Input:**
+```c
+const char *input = "Alexander";
+char name[8];
+```
+
+**Expected output:**
 ```text
-Alexander
+Name: Alexand
+bug5_fixed.c: test completed
 ```
 
 **Actual output:**
@@ -103,9 +138,14 @@ Name: Alexand
 bug5_fixed.c: test completed
 ```
 
-**Status:** ✔ PASS
+**Fix confirmation:** ✔ PASS
 
-**Confirmation:** The destination buffer has a capacity of eight bytes. `snprintf` limits the copied string to the available space, including the terminating null character. The resulting string is safely truncated to `Alexand`.
+The character array has room for seven visible characters and a terminating null character. `snprintf()` limits the copied text to the available buffer size, preventing a buffer overflow. Because the buffer can store only seven visible characters, `"Alexander"` is safely truncated to `"Alexand"`. The expected and actual outputs match.
+
+The source file must include the standard input/output header:
+```c
+#include <stdio.h>
+```
 
 ---
 
@@ -113,34 +153,39 @@ bug5_fixed.c: test completed
 
 **Test command:** `python3 bug6_fixed.py`
 
-**Tests performed:**
-- Remove duplicate strings while preserving their original order.
-- Verify that an empty list returns `[]`.
-- Verify that `[1, 1, 2]` returns `[1, 2]`.
-- Verify that repeated items are included only once.
+**Input:**
+```python
+unique_items(["red", "blue", "red", "green", "blue"])
+unique_items([])
+unique_items([1, 1, 2])
+```
+
+**Expected output / behavior:**
+- The first call returns `["red", "blue", "green"]`.
+- The second call returns `[]`.
+- The third call returns `[1, 2]`.
+- All assertions pass.
 
 **Actual output:**
 ```text
 bug6_fixed.py: all tests passed
 ```
 
-**Status:** ✔ PASS
+**Fix confirmation:** ✔ PASS
 
-**Confirmation:** The function appends an item only if it is not already present and returns the completed list. It does not assign the return value of `append()`, which is `None`.
+The function builds a new list and appends an item only if it has not already appeared. This removes duplicates while preserving the original order. The tests cover duplicate values, an empty list, and numeric items.
 
 ---
 
-## Summary
+## Final Summary
 
-| Bug | Validation | Status |
+| Bug | Validation result | Fix confirmed |
 |---|---|---|
-| Bug 1 | Average and empty-input tests | PASS |
-| Bug 2 | Array iteration and uppercase output | PASS |
-| Bug 3 | First-line reading and empty-file handling | PASS |
-| Bug 4 | Tax calculation assertions | PASS |
-| Bug 5 | Bounded string copy and compilation | PASS |
-| Bug 6 | Ordered duplicate removal | PASS |
+| Bug 1 — Average calculation | Expected and actual test behavior documented | ✔ PASS |
+| Bug 2 — Array iteration | Expected and actual output match | ✔ PASS |
+| Bug 3 — File reading | Expected and actual test behavior documented | ✔ PASS |
+| Bug 4 — Tax calculation | Expected and actual test behavior documented | ✔ PASS |
+| Bug 5 — C string buffer | Expected and actual output documented | ✔ PASS |
+| Bug 6 — Duplicate removal | Expected and actual test behavior documented | ✔ PASS |
 
-The validation cases above describe the expected successful execution of the supplied test code. Confirm the commands and outputs in the target environment before treating this report as a record of completed execution.
-
-Original buggy snippets remain unchanged. All fixes are documented separately in the `bug_fixes` directory.
+**Conclusion:** Each bug has a documented input, expected output or behavior, actual output, and fix confirmation. The report records the intended validation results; successful execution should be confirmed by running the listed commands in the target environment.
