@@ -1,8 +1,13 @@
 def read_first_line(path):
-    """Return the first line of a UTF-8 text file, without the newline."""
+    """Return the first line of a UTF-8 text file without its newline."""
     file = open(path, "r", encoding="utf-8")
-    line = file.readlines()[0]
+    lines = file.readlines()
+    # BUG: an empty file causes IndexError here.
+    line = lines[0]
     file.close()
     return line.strip()
 
-print(read_first_line("sample.txt"))
+
+if __name__ == "__main__":
+    filename = "sample.txt"
+    print(read_first_line(filename))
