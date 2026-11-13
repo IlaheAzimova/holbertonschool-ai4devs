@@ -10,8 +10,10 @@ def last_items(items, n):
 
 def main():
     numbers = [10, 20, 30, 40, 50]
-    print(last_items(numbers, 3))
-    print(last_items(numbers, 0))
+    result = last_items(numbers, 3)
+    print("Expected: [30, 40, 50]")
+    print("Actual:", result)
+    print("Zero items:", last_items(numbers, 0))
 
 
 if __name__ == "__main__":
