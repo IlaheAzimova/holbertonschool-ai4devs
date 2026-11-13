@@ -5,7 +5,6 @@ function calculateAverage(scores) {
     }
 
     let total = 0;
-
     for (let i = 0; i <= scores.length; i++) {
         total += scores[i];
     }
@@ -13,9 +12,7 @@ function calculateAverage(scores) {
     return total / scores.length;
 }
 
-function main() {
-    console.log(calculateAverage([10, 20, 30]));
-    console.log(calculateAverage([]));
-}
-
-main();
+const scores = [10, 20, 30];
+console.log("Expected: 20");
+console.log("Actual:", calculateAverage(scores));
+console.log("Empty array:", calculateAverage([]));
